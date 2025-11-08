@@ -1,0 +1,6 @@
+body { font-family: Arial; background: #f4f4f4; margin: 0; padding: 20px; }
+.container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+button { padding: 12px 20px; background: #1877f2; color: white; border: none; border-radius: 6px; cursor: pointer; margin: 10px 5px; }
+button:hover { background: #166fe5; }
+ul { list-style: none; padding: 0; }
+li { padding: 10px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }

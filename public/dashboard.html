@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Your Connected Accounts</h1>
+    <button onclick="location.href='/auth/start'">Add More Accounts</button>
+    <button onclick="location.href='/'">Logout</button>
+
+    <ul id="accounts"></ul>
+  </div>
+
+<script>
+  fetch('/api/accounts')
+    .then(r => r.json())
+    .then(accounts => {
+      const list = document.getElementById('accounts');
+      accounts.forEach(acc => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <strong>${acc.platform}: @${acc.name}</strong>
+          <label>
+            <input type="checkbox" ${acc.enabled ? 'checked' : ''} onchange="toggle(${acc.id}, this.checked)">
+            Auto-Replies ${acc.enabled ? 'ON' : 'OFF'}
+          </label>
+          ${acc.enabled ? '<small style="color:green">AI replies powered by GPT</small>' : ''}
+        `;
+        list.appendChild(li);
+      });
+    });
+
+  function toggle(id, enabled) {
+    fetch('/api/toggle', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ accountId: id, enabled })
+    });
+  }
+</script>
+</body>
+</html>
